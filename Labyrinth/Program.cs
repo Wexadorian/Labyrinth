@@ -69,41 +69,38 @@ namespace Labyrinth
             {
                 if (isFirstTime)
                 {
-                    TypeWriter("Alright " + userName + ", where would you like to start your adventure?");
+                    TypeWriter("You wake up on a pile of leaves,");
                     isFirstTime = false;
                 }
                 else
                 {
-
+                    TypeWriter("You arrive in an area with leaves on the ground");
+                    TypeWriter("\"Wait!\" You say, \"I've already been here! \"");
+                    TypeWriter("You have arrived back at the beginning");
                     TypeWriter("What will you do next, "+ userName + "?");
                 }
-                TypeWriter("Choose a path: (forest/mountains/sea/cave/square/inv/exit)");
+                TypeWriter("Choose a path: (left/right/back/forward/exit/inv)");
 
                 string userChoice = Console.ReadLine().ToLower();
 
                 switch (userChoice)
                 {
-                    case "forest":
-                        Forest();
+                    case "left":
+                        left();
                         break;
-                    case "mountains":
-                        Mountains();
+
+                    case "right":
+                        right();
                         break;
-                    case "sea":
-                        Sea();
+
+                    case "back":
+                        back();
                         break;
-                    case "cave":
-                        Cave();
+
+                    case "forward":
+                        forward();
                         break;
-                    case "square":
-                        VillageSquare();
-                        break;
-                    case "inv":
-                        ShowInventory();
-                        break;
-                    case "exit":
-                        continuePlaying = false;
-                        break;
+
                     default:
                         TypeWriter("Invalid choice. Please choose a valid path, type 'inv' to check your inventory, or 'exit' to quit the game.");
                         break;
