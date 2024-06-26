@@ -10,8 +10,10 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Labyrinth
 {
-    internal class Program
+    public class Program
     {
+        
+
         static void Main(string[] args)
         {
             Console.SetWindowSize(1920,1080);
@@ -90,19 +92,7 @@ namespace Labyrinth
                 switch (userChoice)
                 {
                     case "left":
-                        left();
-                        break;
-
-                    case "right":
-                        right();
-                        break;
-
-                    case "back":
-                        back();
-                        break;
-
-                    case "forward":
-                        forward();
+                        left(userName);
                         break;
 
                     case "exit":
@@ -118,7 +108,7 @@ namespace Labyrinth
             TypeWriter("Thank you for playing! Goodbye.");
         }
 
-        static void left()
+        static void left(string userName)
         {
             TypeWriter("You head to the left");
             TypeWriter("There is a skeleton lying on the ground. Would you like to search it? (yes/no)");
@@ -146,12 +136,33 @@ namespace Labyrinth
 
             if (choice2 == "yes")
             {
-                
+                TypeWriter("You whack the lion on the head as hard as you can");
+                TypeWriter("The lion runs away");
+                TypeWriter("You see the man lying on the ground");
+                TypeWriter("Would you like to talk to him? (yes/no)");
+                string choice3 = Console.ReadLine().ToLower();
+
+                if (choice3 == "yes") 
+                {
+                    TypeWriter("You go to speak to the man");
+                    TypeWriter("\"Hello\", you say. \"I am " + userName + "\"");
+                    TypeWriter("...");
+                    TypeWriter("The man is dead");
+                    TypeWriter("Well that was a huge waste of time");
+                    TypeWriter("You walk around the corner...");
+                }
+
+                else
+                {
+                    TypeWriter("You decide to leave the man alone");
+                    TypeWriter("You walk around the corner...");
+                }
             }
             else
             {
-                TypeWriter("You leave the man to die, you monster");
-                TypeWriter("You turn around a corner");
+                TypeWriter("You leave the man to die");
+                TypeWriter("You monster");
+                TypeWriter("You turn around a corner...");
             }
         }
 
@@ -160,8 +171,10 @@ namespace Labyrinth
             foreach (char c in text)
             {
                 Console.Write(c);
-                Thread.Sleep(50);
+                Thread.Sleep(0);
             }
+
+            Thread.Sleep(0);
             Console.WriteLine();
         }
     }
