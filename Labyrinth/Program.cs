@@ -95,6 +95,10 @@ namespace Labyrinth
                         left(userName);
                         break;
 
+                    case "right":
+                        right(userName);
+                        break;
+
                     case "exit":
                         continuePlaying = false;
                         break;
@@ -111,20 +115,34 @@ namespace Labyrinth
         static void left(string userName)
         {
             TypeWriter("You head to the left");
-            TypeWriter("There is a skeleton lying on the ground. Would you like to search it? (yes/no)");
-            string choice = Console.ReadLine().ToLower();
 
-            if (choice == "yes")
+            bool choice1Made = false;
+
+            while (choice1Made == false) 
             {
-                TypeWriter("You look inside the skeleton");
-                TypeWriter("There is nothing there!");
-                TypeWriter("Now you feel bad...");
+                TypeWriter("There is a skeleton lying on the ground. Would you like to search it? (yes/no)");
+                string choice = Console.ReadLine().ToLower();
+
+                if (choice == "yes")
+                {
+                    TypeWriter("You look inside the skeleton");
+                    TypeWriter("There is nothing there!");
+                    TypeWriter("Now you feel bad...");
+                    choice1Made = true;
+                }
+                else if (choice == "no") 
+                {
+                    TypeWriter("It wouldn't feel right to disrespect the dead like that");
+                    TypeWriter("You continue ahead...");
+                    choice1Made= true;
+                }
+                else
+                {
+                    TypeWriter("Invalid answer, please try again");
+                }
             }
-            else
-            {
-                TypeWriter("It wouldn't feel right to disrespect the dead like that");
-                TypeWriter("You continue ahead...");
-            }
+
+   
 
             
             TypeWriter("\"Help!\" you hear somebody shout");
@@ -135,28 +153,44 @@ namespace Labyrinth
             string choice2 = Console.ReadLine().ToLower();
 
             if (choice2 == "yes")
-            {
+            {   
+
+                bool choice3made = false;
+
                 TypeWriter("You whack the lion on the head as hard as you can");
                 TypeWriter("The lion runs away");
                 TypeWriter("You see the man lying on the ground");
-                TypeWriter("Would you like to talk to him? (yes/no)");
-                string choice3 = Console.ReadLine().ToLower();
 
-                if (choice3 == "yes") 
+                while (choice3made == false)
                 {
-                    TypeWriter("You go to speak to the man");
-                    TypeWriter("\"Hello\", you say. \"I am " + userName + "\"");
-                    TypeWriter("...");
-                    TypeWriter("The man is dead");
-                    TypeWriter("Well that was a huge waste of time");
-                    TypeWriter("You walk around the corner...");
-                }
+                  
+                    TypeWriter("Would you like to talk to him? (yes/no)");
+                    string choice3 = Console.ReadLine().ToLower();
 
-                else
-                {
-                    TypeWriter("You decide to leave the man alone");
-                    TypeWriter("You walk around the corner...");
+                    if (choice3 == "yes")
+                    {
+                        TypeWriter("You go to speak to the man");
+                        TypeWriter("\"Hello\", you say. \"I am " + userName + "\"");
+                        TypeWriter("...");
+                        TypeWriter("The man is dead");
+                        TypeWriter("Well that was a huge waste of time");
+                        TypeWriter("You walk around the corner...");
+                        choice3made = true;
+                    }
+
+                    else if (choice3 == "no")
+                    {
+                        TypeWriter("You decide to leave the man alone");
+                        TypeWriter("You walk around the corner...");
+                        choice3made= true;
+                    }
+
+                    else
+                    {
+                        TypeWriter("Invalid answer, please try again");
+                    }
                 }
+                
             }
             else
             {
@@ -164,6 +198,11 @@ namespace Labyrinth
                 TypeWriter("You monster");
                 TypeWriter("You turn around a corner...");
             }
+        }
+
+        static void right(string userName)
+        {
+            
         }
 
         static void TypeWriter(string text)
