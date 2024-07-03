@@ -12,10 +12,10 @@ namespace Labyrinth
 {
     public class Program
     {
-        
-
+         
         static void Main(string[] args)
         {
+
             Console.SetWindowSize(1920,1080);
             
 
@@ -46,6 +46,7 @@ namespace Labyrinth
             Console.ForegroundColor
                = ConsoleColor.Gray;
 
+            
 
             Console.WriteLine();
             Console.WriteLine();
@@ -62,10 +63,12 @@ namespace Labyrinth
 
         }
 
+        
         static void StartGame(string userName)
         {
             bool continuePlaying = true;
             bool isFirstTime = true;
+            bool hasKey = false;
 
             while (continuePlaying)
             {
@@ -96,7 +99,7 @@ namespace Labyrinth
                         break;
 
                     case "forward":
-                        forward(userName);
+                        forward(userName, hasKey);
                         break;
 
                     case "exit":
@@ -114,6 +117,9 @@ namespace Labyrinth
             }
 
             TypeWriter("Thank you for playing! Goodbye.");
+            Console.WriteLine();
+            Console.WriteLine("Press any key to continue. . .");
+            Console.ReadKey();
         }
 
         static void left(string userName)
@@ -209,7 +215,7 @@ namespace Labyrinth
         }
 
 
-        static void forward(string userName)
+        static void forward(string userName, bool hasKey)
         {
             TypeWriter("You head directly forward");
 
@@ -250,12 +256,15 @@ namespace Labyrinth
                 if (choice2 == "yes")
                 {
                     TypeWriter("You follow the whispering and find a hidden passage behind a tapestry.");
-                    TypeWriter("You enter the passage and find a glowing artifact on a pedestal.");
+                    TypeWriter("You enter the passage and find a glowing key on a pedestal.");
+                    hasKey = true;
                     choice2Made = true;
+
                 }
                 else if (choice2 == "no")
                 {
                     TypeWriter("You ignore the whispering and continue forward.");
+                    TypeWriter("You feel like you might have missed something important");
                     TypeWriter("You come across a large hall filled with treasure chests.");
                     TypeWriter("You look inside one");
                     TypeWriter("...It's empty");
@@ -288,7 +297,7 @@ namespace Labyrinth
                 else if (choice3 == "run")
                 {
                     TypeWriter("You decide to run away as fast as you can.");
-                    TypeWriter("You manage to escape the dragon, but you feel a sense of regret for not facing it.");
+                    TypeWriter("You manage to escape the dragon");
                     TypeWriter("You find another path leading out of the hall.");
                     choice3Made = true;
                 }
@@ -308,7 +317,7 @@ namespace Labyrinth
                 Thread.Sleep(0);
             }
 
-            Thread.Sleep(0);
+            Thread.Sleep(1000);
             Console.WriteLine();
         }
     }
