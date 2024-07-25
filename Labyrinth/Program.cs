@@ -15,6 +15,7 @@ namespace Labyrinth
     {
         static string[] items = { "Key", "Dagger", "Treasure" };
         static bool[] itemAvailability = { false, false, false };
+        static bool rightFirstTime = true;
 
         static void Main(string[] args)
         {
@@ -68,6 +69,7 @@ namespace Labyrinth
             bool continuePlaying = true;
             bool isFirstTime = true;
             bool afterPath = false;
+            
 
             while (continuePlaying)
             {
@@ -412,11 +414,9 @@ namespace Labyrinth
 
             }
 
-
-
-            TypeWriter("Suddenly, you hear a loud roar.");
-
-
+            TypeWriter("\"Hey! Over here!\" you hear somebody shout");
+            TypeWriter("You look in the direction of the sound");
+            TypeWriter("You see an old man hobbling towards you");
 
             bool choice3Made = false;
 
@@ -428,9 +428,6 @@ namespace Labyrinth
                 if (itemAvailability[1] == true)
                 {
 
-                    TypeWriter("\"Hey! Over here!\" you hear somebody shout");
-                    TypeWriter("You look in the direction of the sound");
-                    TypeWriter("You see an old man hobbling towards you");
                     TypeWriter("What would you like to do? (ignore/talk/stab)");
 
                     string choice3 = Console.ReadLine().ToLower();
@@ -499,9 +496,6 @@ namespace Labyrinth
                 else
                 {
 
-                    TypeWriter("\"Hey! Over here!\" you hear somebody shout");
-                    TypeWriter("You look in the direction of the sound");
-                    TypeWriter("You see an old man hobbling towards you");
                     TypeWriter("What would you like to do? (ignore/talk)");
 
                     string choice3 = Console.ReadLine().ToLower();
@@ -528,9 +522,9 @@ namespace Labyrinth
 
                         TypeWriter("You decide to talk to the man");
 
-                        TypeWriter("");
+                        TypeWriter("test test test");
 
-                        TypeWriter("");
+                        TypeWriter("test");
 
                         choice3Made = true;
 
@@ -551,57 +545,82 @@ namespace Labyrinth
 
 
         static void right(string userName)
-
         {
 
-            TypeWriter("You head to the right");
-
-            TypeWriter("It is eerily quiet");
-
-            TypeWriter("You walk down a long hallway");
-
-            TypeWriter("...");
-
-            TypeWriter("This is a VERY long hallway");
-
-            TypeWriter("You finally get to a door");
-
-            TypeWriter("You can hear a quiet humming behind it");
-
-            TypeWriter("You try opening the door");
-
-
-
-
-
-            if (itemAvailability[0] == true)
+            if (rightFirstTime == true)
             {
+                TypeWriter("You head to the right");
+
+                TypeWriter("It is eerily quiet");
+
+                TypeWriter("You walk down a long hallway");
 
                 TypeWriter("...");
 
-                TypeWriter("It's locked");
+                TypeWriter("This is a VERY long hallway");
 
-                TypeWriter("\"Oh wait\" you say, \"I have a key!\"");
+                TypeWriter("You finally get to a door");
 
-                TypeWriter("You insert the key into the door");
+                TypeWriter("You can hear a quiet humming behind it");
+
+                TypeWriter("You try opening the door");
+     
+
+                if (itemAvailability[0] == true)
+                {
+
+                    TypeWriter("...");
+
+                    TypeWriter("It's locked");
+
+                    TypeWriter("\"Oh wait\" you say, \"I have a key!\"");
+
+                    TypeWriter("You insert the key into the door");
+
+                }
+
+
+
+                else
+                {
+
+                    TypeWriter("...");
+
+                    TypeWriter("It's locked, maybe you should try to find a key?");
+
+                    TypeWriter("You go back down the hallway");
+
+                }
+
+                rightFirstTime = false;
 
             }
 
-
-
             else
             {
-
-                TypeWriter("...");
-
-                TypeWriter("It's locked, maybe you should try to find a key?");
-
                 TypeWriter("You go back down the hallway");
+
+                if (itemAvailability[0] == true)
+                {
+
+                    TypeWriter("You insert the key you found into the door");
+
+                }
+
+
+
+                else
+                {
+
+                    TypeWriter("...");
+
+                    TypeWriter("The door is still locked");
+
+                }
 
             }
 
         }
-
 
 
         static void ShowInventory()
