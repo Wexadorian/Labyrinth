@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace Labyrinth
 
         
 
-        static string[] items = { "Key", "Dagger", "Treasure" };
+        static string[] items = { "Key", "Dagger", "Lantern" };
 
         static bool[] itemAvailability = { false, false, false };
 
@@ -105,11 +106,11 @@ namespace Labyrinth
 
 
 
-            while (continuePlaying)
+            while (continuePlaying == true)
 
             {
 
-                if (isFirstTime)
+                if (isFirstTime == true)
 
                 {
 
@@ -127,7 +128,7 @@ namespace Labyrinth
 
 
 
-                if (afterPath)
+                if (afterPath == true)
 
                 {
 
@@ -161,24 +162,30 @@ namespace Labyrinth
                 {
 
                     case "left":
-
+                        afterPath = true;
                         left(userName);
 
-                        afterPath = true;
+                        
 
                         break;
 
                     case "forward":
-
+                        afterPath = true;
                         forward(userName);
 
-                        afterPath = true;
+                        
 
                         break;
 
                     case "right":
 
                         right(userName);
+
+                        break;
+
+                    case "back":
+                        afterPath = false;
+                        back(userName);
 
                         break;
 
@@ -648,7 +655,127 @@ namespace Labyrinth
 
         }
 
+        static void back(string userName)
+        {
 
+            TypeWriter("You go to the path behind you");
+
+            bool choice1Made = false;
+
+            if (itemAvailability[2] == false)
+            {
+                TypeWriter("It's too dark to see anything");
+                TypeWriter("Maybe you should try and find something to brighten up the path?");
+                TypeWriter("You go back the way you came");
+                
+            }
+
+            else
+            {
+                while (choice1Made == false)
+                {
+                    TypeWriter("You shine your lantern to brighten up the way");
+                    TypeWriter("You notice some writing on the walls, would you like to look closer? (yes/no)");
+
+                    string choice = Console.ReadLine().ToLower();
+
+                    if (choice == "yes")
+                    {
+
+                        TypeWriter("You shine the lantern at the walls");
+                        TypeWriter("The secret you seek lies hidden, guarded by murmurs in the shadows.");
+                        
+                        if (itemAvailability[0] == true)
+                        {
+                            TypeWriter("This seems to be referring to the key, which you have already found");
+                        }
+
+                        else
+                        {
+                            TypeWriter("You don't know what this is referring to, but you hope you find it soon");
+                        }
+                        
+                       
+
+                        choice1Made = true;
+
+                    }
+
+                    else if (choice == "no")
+                    {
+
+                        TypeWriter("The writing probably wasn't important anyways");
+                        TypeWriter("You continue ahead...");
+
+                        choice1Made = true;
+
+                    }
+
+                    else
+                    {
+
+                        TypeWriter("Invalid answer, please try again");
+
+                    }
+
+                    
+
+
+
+                    TypeWriter("You notice some bats on the ceiling");
+
+
+
+                    bool choice2Made = false;
+
+
+
+                    while (choice2Made == false)
+
+                    {
+
+                        TypeWriter("You are feeling kind of hungry, would you like to catch and eat the bats? (yes/no)");
+
+                        string choice2 = Console.ReadLine().ToLower();
+
+                        if (choice2 == "yes")
+                        {
+
+                            TypeWriter("You try to catch and eat the bats");
+                            TypeWriter(". . .");
+                            TypeWriter("They fly away when they notice you coming");
+                            TypeWriter("Now you feel stupid");
+                            TypeWriter("You continue ahead");
+                            choice2Made = true;
+
+                        }
+
+                        else if (choice2 == "no")
+                        {
+                            TypeWriter("You don't want to eat bat anyways");
+                            TypeWriter("You continue ahead");
+                            choice2Made = true;
+
+                        }
+
+                        else
+                        {
+
+                            TypeWriter("Invalid answer, please try again");
+
+                        }
+
+
+                    }
+
+                    TypeWriter("You walk ahead for a little while");
+                    TypeWriter("Eventually, you reach a dead end");
+                    TypeWriter("You go back the way you came");
+
+
+                }
+            }
+        }
 
         static void right(string userName)
 
@@ -830,9 +957,11 @@ namespace Labyrinth
 
             }
 
-
-
-            TypeWriter("The man nods and hurries off to continue his search.");
+            TypeWriter("\"Here\", the man says. \"Take this, I don't need it anymore\"");
+            TypeWriter("The man hands you a lantern");
+            itemAvailability[2] = true;
+            TypeWriter("Inventory updated");
+            TypeWriter("The man hurries off to continue his search.");
 
             TypeWriter("You go around the corner");
 
