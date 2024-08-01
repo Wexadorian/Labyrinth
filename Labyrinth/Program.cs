@@ -1,41 +1,53 @@
 ﻿using System;
+
 using System.Collections.Generic;
+
 using System.IO;
+
 using System.Linq;
+
 using System.Runtime.CompilerServices;
+
 using System.Text;
+
 using System.Threading;
+
 using System.Threading.Tasks;
+
 using System.Windows;
+
 using static System.Net.Mime.MediaTypeNames;
 
-
 namespace Labyrinth
+
 {
 
     public class Program
+
     {
 
-        
+        //defines the items in the game and whether or not they are available 
 
         static string[] items = { "Key", "Dagger", "Lantern" };
 
         static bool[] itemAvailability = { false, false, false };
 
-        static bool rightFirstTime = true;
+        static bool rightFirstTime = true;//tracks whether or not the player has been in the right direction 
 
-        static bool fateSealed = false;
-
+        static bool fateSealed = false;//tracks whether or not the player has met the criteria for the bad ending 
 
         static void Main(string[] args)
+
         {
 
-            Console.SetWindowSize(336, 189);
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            
+            //displays the game title using ascii art on a notepad file 
 
+            //Changes the colour of the ascii to yellow and then changes the colour back to gray after the title has been displayed 
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
 
             try
+
             {
 
                 using StreamReader sr = new StreamReader("Labyrinth Title.txt");
@@ -43,6 +55,7 @@ namespace Labyrinth
                 string line;
 
                 while ((line = sr.ReadLine()) != null)
+
                 {
 
                     Console.WriteLine(line);
@@ -61,50 +74,39 @@ namespace Labyrinth
 
             }
 
-
-
             Console.ForegroundColor = ConsoleColor.Gray;
 
-            Console.WriteLine();
-
-            Console.WriteLine();
-
-            Console.WriteLine();
-
-            Console.WriteLine();
-
-            Console.WriteLine();
 
 
+    
+
+ 
+
+
+
+            //introduction where the player chooses username 
 
             TypeWriter("Welcome to my text adventure!");
 
             TypeWriter("What would you like your character's name to be?");
 
-
-
             string userName = Console.ReadLine();
 
             TypeWriter("Hello " + userName + ", your adventure begins now!");
 
-
-
-            StartGame(userName);
+            StartGame(userName);//starts the game 
 
         }
 
-
-
         static void StartGame(string userName)
+
         {
 
-            bool continuePlaying = true;
+            bool continuePlaying = true;//controls whether or not the game is playing 
 
-            bool isFirstTime = true;
+            bool isFirstTime = true;//checks if its the players first time 
 
-            bool afterPath = false;
-
-
+            bool afterPath = false;//checks if the player has already taken a path 
 
             while (continuePlaying == true)
 
@@ -113,6 +115,8 @@ namespace Labyrinth
                 if (isFirstTime == true)
 
                 {
+
+                    //introduction 
 
                     TypeWriter("You wake up on a pile of leaves");
 
@@ -126,7 +130,7 @@ namespace Labyrinth
 
                 }
 
-
+                //gives different dialogue based on whether or not the player has been down a path 
 
                 if (afterPath == true)
 
@@ -152,28 +156,31 @@ namespace Labyrinth
 
 
 
+                //prompt for user input 
+
                 TypeWriter("Choose a path: (left/right/back/forward/exit/inv)");
 
                 string userChoice = Console.ReadLine().ToLower();
 
-
+                //handles user choices 
 
                 switch (userChoice)
+
                 {
 
                     case "left":
-                        afterPath = true;
-                        left(userName);
 
-                        
+                        afterPath = true;
+
+                        left(userName);
 
                         break;
 
                     case "forward":
-                        afterPath = true;
-                        forward(userName);
 
-                        
+                        afterPath = true;
+
+                        forward(userName);
 
                         break;
 
@@ -184,16 +191,18 @@ namespace Labyrinth
                         break;
 
                     case "back":
+
                         afterPath = false;
+
                         back(userName);
 
                         break;
 
                     case "inv":
 
-                        ShowInventory();
-
                         afterPath = false;
+
+                        ShowInventory();
 
                         break;
 
@@ -207,13 +216,17 @@ namespace Labyrinth
 
                         TypeWriter("Invalid choice. Please choose a valid path, type 'inv' to check your inventory, or 'exit' to quit the game.");
 
-                        isFirstTime = true;
+                        isFirstTime = false;
+
+                        afterPath = false;
 
                         break;
 
                 }
 
             }
+
+            //ends the game if needed 
 
             TypeWriter("Thank you for playing! Goodbye.");
 
@@ -227,15 +240,19 @@ namespace Labyrinth
 
 
 
+        //code for the left path 
+
         static void left(string userName)
 
         {
 
             TypeWriter("You head to the left");
 
+            //this is to stop it from moving onto the next scenario if a typo is made 
+
             bool choice1Made = false;
 
-            while (choice1Made == false)
+            while (choice1Made == false)//checks to see whether or not the player has made the choice 
 
             {
 
@@ -249,11 +266,11 @@ namespace Labyrinth
 
                     TypeWriter("You grab the dagger off of the ground");
 
-                    itemAvailability[1] = true;
+                    itemAvailability[1] = true; //updates inventory  
 
                     TypeWriter("Inventory updated.");
 
-                    choice1Made = true;
+                    choice1Made = true;//confirms that the player has made the choice and that the program can move onto the next scenario 
 
                 }
 
@@ -279,8 +296,6 @@ namespace Labyrinth
 
             }
 
-
-
             TypeWriter("\"Help!\" you hear somebody shout");
 
             TypeWriter("You run towards the sound");
@@ -288,8 +303,6 @@ namespace Labyrinth
             TypeWriter("As you turn around the corner you see a man cornered by a lion");
 
             bool choice2Made = false;
-
-
 
             while (choice2Made == false)
 
@@ -333,7 +346,7 @@ namespace Labyrinth
 
                         Console.ReadKey();
 
-                        Environment.Exit(0);
+                        Environment.Exit(0);//quits the game 
 
                     }
 
@@ -351,7 +364,7 @@ namespace Labyrinth
 
                             TypeWriter("You go to speak to the man");
 
-                            TypeWriter("\"Hello\", you say. \"I am " + userName + "\"");
+                            TypeWriter("\"Hello\", you say. \"I am " + userName + "\"");//calls on the players username 
 
                             TypeWriter("...");
 
@@ -419,6 +432,8 @@ namespace Labyrinth
 
 
 
+        //code for the forward path 
+
         static void forward(string userName)
 
         {
@@ -467,8 +482,6 @@ namespace Labyrinth
 
             }
 
-
-
             TypeWriter("As you proceed, you hear a faint whispering sound.");
 
             bool choice2Made = false;
@@ -493,7 +506,7 @@ namespace Labyrinth
 
                     TypeWriter("This feels... important");
 
-                    itemAvailability[0] = true;
+                    itemAvailability[0] = true;//updates inventory 
 
                     TypeWriter("Inventory updated.");
 
@@ -531,8 +544,6 @@ namespace Labyrinth
 
             }
 
-
-
             TypeWriter("\"Hey! Over here!\" you hear somebody shout");
 
             TypeWriter("You look in the direction of the sound");
@@ -545,11 +556,11 @@ namespace Labyrinth
 
             {
 
-                if (itemAvailability[1] == true)
+                if (itemAvailability[1] == true)//checks to see whether or not the player has the dagger 
 
                 {
 
-                    TypeWriter("What would you like to do? (ignore/talk/stab)");
+                    TypeWriter("What would you like to do? (ignore/talk/stab)");//if the player does have the dagger it gives the option to stab the man 
 
                     string choice3 = Console.ReadLine().ToLower();
 
@@ -571,7 +582,7 @@ namespace Labyrinth
 
                     {
 
-                        TalkToMan();
+                        TalkToMan();//calls on the method TalkToMan.This method includes the conversation with the man. 
 
                         choice3Made = true;
 
@@ -587,9 +598,9 @@ namespace Labyrinth
 
                         TypeWriter("You leave the man dying on the floor with a dagger in his stomach");
 
-                        fateSealed = true;
+                        fateSealed = true;//the player will now get the bad ending 
 
-                        itemAvailability[1] = false;
+                        itemAvailability[1] = false;//takes dagger away from inventory 
 
                         TypeWriter("Inventory Updated");
 
@@ -613,7 +624,7 @@ namespace Labyrinth
 
                 {
 
-                    TypeWriter("What would you like to do? (ignore/talk)");
+                    TypeWriter("What would you like to do? (ignore/talk)");//if the player doesn't have the dagger they dont get the option to stab the man 
 
                     string choice3 = Console.ReadLine().ToLower();
 
@@ -635,7 +646,7 @@ namespace Labyrinth
 
                     {
 
-                        TalkToMan();
+                        TalkToMan();//calls on the method TalkToMan.This method includes the conversation with the man. 
 
                         choice3Made = true;
 
@@ -655,133 +666,157 @@ namespace Labyrinth
 
         }
 
+
+
+        //code for the back direction 
+
         static void back(string userName)
+
         {
 
             TypeWriter("You go to the path behind you");
 
             bool choice1Made = false;
 
-            if (itemAvailability[2] == false)
+            if (itemAvailability[2] == false)//if player doesn't have the lantern, it wont let them down the path 
+
             {
+
                 TypeWriter("It's too dark to see anything");
+
                 TypeWriter("Maybe you should try and find something to brighten up the path?");
+
                 TypeWriter("You go back the way you came");
-                
+
+                return;//stops code from moving on to the next scenario 
+
             }
 
-            else
+            TypeWriter("You shine your lantern to brighten up the way");
+
+            while (choice1Made == false)
+
             {
-                while (choice1Made == false)
+
+                TypeWriter("You notice some writing on the walls, would you like to look closer? (yes/no)");
+
+                string choice = Console.ReadLine().ToLower();
+
+                if (choice == "yes")
+
                 {
-                    TypeWriter("You shine your lantern to brighten up the way");
-                    TypeWriter("You notice some writing on the walls, would you like to look closer? (yes/no)");
 
-                    string choice = Console.ReadLine().ToLower();
+                    TypeWriter("You shine the lantern at the walls");
 
-                    if (choice == "yes")
+                    TypeWriter("The secret you seek lies hidden, guarded by murmurs in the shadows.");
+
+                    if (itemAvailability[0] == true)//gives different dialogue depending on whether or not player has the key 
+
                     {
 
-                        TypeWriter("You shine the lantern at the walls");
-                        TypeWriter("The secret you seek lies hidden, guarded by murmurs in the shadows.");
-                        
-                        if (itemAvailability[0] == true)
-                        {
-                            TypeWriter("This seems to be referring to the key, which you have already found");
-                        }
-
-                        else
-                        {
-                            TypeWriter("You don't know what this is referring to, but you hope you find it soon");
-                        }
-                        
-                       
-
-                        choice1Made = true;
-
-                    }
-
-                    else if (choice == "no")
-                    {
-
-                        TypeWriter("The writing probably wasn't important anyways");
-                        TypeWriter("You continue ahead...");
-
-                        choice1Made = true;
+                        TypeWriter("This seems to be referring to the key, which you have already found");
 
                     }
 
                     else
-                    {
-
-                        TypeWriter("Invalid answer, please try again");
-
-                    }
-
-                    
-
-
-
-                    TypeWriter("You notice some bats on the ceiling");
-
-
-
-                    bool choice2Made = false;
-
-
-
-                    while (choice2Made == false)
 
                     {
 
-                        TypeWriter("You are feeling kind of hungry, would you like to catch and eat the bats? (yes/no)");
-
-                        string choice2 = Console.ReadLine().ToLower();
-
-                        if (choice2 == "yes")
-                        {
-
-                            TypeWriter("You try to catch and eat the bats");
-                            TypeWriter(". . .");
-                            TypeWriter("They fly away when they notice you coming");
-                            TypeWriter("Now you feel stupid");
-                            TypeWriter("You continue ahead");
-                            choice2Made = true;
-
-                        }
-
-                        else if (choice2 == "no")
-                        {
-                            TypeWriter("You don't want to eat bat anyways");
-                            TypeWriter("You continue ahead");
-                            choice2Made = true;
-
-                        }
-
-                        else
-                        {
-
-                            TypeWriter("Invalid answer, please try again");
-
-                        }
-
+                        TypeWriter("You don't know what this is referring to, but you hope you find it soon");
 
                     }
 
-                    TypeWriter("You walk ahead for a little while");
-                    TypeWriter("Eventually, you reach a dead end");
-                    TypeWriter("You go back the way you came");
-
+                    choice1Made = true;
 
                 }
+
+                else if (choice == "no")
+
+                {
+
+                    TypeWriter("The writing probably wasn't important anyways");
+
+                    TypeWriter("You continue ahead...");
+
+                    choice1Made = true;
+
+                }
+
+                else
+
+                {
+
+                    TypeWriter("Invalid answer, please try again");
+
+                }
+
             }
+
+            TypeWriter("You notice some bats on the ceiling");
+
+            bool choice2Made = false;
+
+            while (choice2Made == false)
+
+            {
+
+                TypeWriter("You are feeling kind of hungry, would you like to catch and eat the bats? (yes/no)");
+
+                string choice2 = Console.ReadLine().ToLower();
+
+                if (choice2 == "yes")
+
+                {
+
+                    TypeWriter("You try to catch and eat the bats");
+
+                    TypeWriter(". . .");
+
+                    TypeWriter("They fly away when they notice you coming");
+
+                    TypeWriter("Now you feel stupid");
+
+                    TypeWriter("You continue ahead");
+
+                    choice2Made = true;
+
+                }
+
+                else if (choice2 == "no")
+
+                {
+
+                    TypeWriter("You don't want to eat bat anyways");
+
+                    TypeWriter("You continue ahead");
+
+                    choice2Made = true;
+
+                }
+
+                else
+
+                {
+
+                    TypeWriter("Invalid answer, please try again");
+
+                }
+
+            }
+
+            TypeWriter("You walk ahead for a little while");
+
+            TypeWriter("Eventually, you reach a dead end");
+
+            TypeWriter("You go back the way you came");
+
         }
 
         static void right(string userName)
 
         {
 
-            if (rightFirstTime == true)
+            if (rightFirstTime == true)//if the player hasn't been to the right before, it gives different (long) dialogue that I didnt want people to have to sit through twice. 
 
             {
 
@@ -801,7 +836,7 @@ namespace Labyrinth
 
                 TypeWriter("You try opening the door");
 
-                if (itemAvailability[0] == true)
+                if (itemAvailability[0] == true)//if the player has the key it lets them through the door to finish the game 
 
                 {
 
@@ -813,9 +848,9 @@ namespace Labyrinth
 
                     TypeWriter("You insert the key into the door");
 
-                    GameFinishSequence();
+                    GameFinishSequence();//calls on the method GameFinishSequence. This is the final sequence of the game 
 
-                    rightFirstTime = false;
+                    rightFirstTime = false;//lets the program know that the player has been down the right direction 
 
                 }
 
@@ -833,8 +868,6 @@ namespace Labyrinth
 
                 }
 
-               
-
             }
 
             else
@@ -843,12 +876,14 @@ namespace Labyrinth
 
                 TypeWriter("You go back down the hallway");
 
-                if (itemAvailability[0] == true)
+                if (itemAvailability[0] == true)// if the player has the key it lets them through the door to finish the game 
 
                 {
 
                     TypeWriter("You insert the key you found into the door");
-                    GameFinishSequence();
+
+                    GameFinishSequence();//calls on the method GameFinishSequence. This is the final sequence of the game 
+
                 }
 
                 else
@@ -865,68 +900,130 @@ namespace Labyrinth
 
         }
 
+
+
+        //code for final sequence of the game 
+
         static void GameFinishSequence()
+
         {
+
             TypeWriter("You turn the handle");
+
             TypeWriter("It's too dark to see anything");
+
             TypeWriter("You take a step through");
 
-            if (fateSealed == true)
+            if (fateSealed == true)//if the player kills the man they get the bad ending 
+
             {
-                //string full of 'intentionally' corny one-liners
-                string[] oneLiners = 
+
+                //string full of 'intentionally' corny one-liners  
+
+                string[] oneLiners =
+
                 {
+
                    "Looks like you’ve been... *outplayed*!",
+
                    "Did you think it was *game over*? Guess again!",
+
                    "You’ve just been served a *slice of revenge*!",
+
                    "Hope you’re ready for a *stab in the back*!",
+
                    "I guess you could say... you’ve been *skewered*!",
+
                    "Surprise! Here’s a little *twist* for you!",
+
                    "You thought you had the last laugh... *not quite*!",
+
                    "It’s a *painful plot twist* just for you!",
+
                    "Looks like you’ve just been *backstabbed*!",
+
                    "And with that, you’ve met your *gruesome end*!",
+
                    "Your story ends with a *painful surprise*!",
+
                    "Did you think you could *escape*? Think again!",
+
                    "Looks like your *final move* was a little off!",
+
                    "You’re about to experience a *stabbing revelation*!",
+
                    "Guess who’s got the last laugh now? *Me*!",
+
                    "Your journey ends with a *painful punctuation*!",
+
                    "You’ve just been *stabbed* with a side of drama!",
+
                    "How’s that for a *plot twist*? Painful, isn’t it?",
+
                    "I hope you enjoyed the ride... because it’s over!",
+
                    "You’ve been *backstabbed* and it’s a *wrap*!",
+
                    "You've been punked, labyrinth style!"
+
                 };
 
-                //selects a random one liner to output when needed
+                //selects a random one liner to output when needed  
+
                 Random random = new Random();
+
                 int randomIndex = random.Next(oneLiners.Length);
 
+
+
                 TypeWriter("Suddenly, you feel a sharp pain. The old man appears and stabs you in the back.");
-                TypeWriter("With a smirk, he says, \"" + oneLiners[randomIndex] + "\"");
+
+                TypeWriter("With a smirk, he says, \"" + oneLiners[randomIndex] + "\"");//here is the one liner 
+
                 TypeWriter("You collapse, realizing that you probably shouldn't have stabbed a defenseless old man just because you felt like it.");
+
                 Console.WriteLine();
+
                 TypeWriter("Game Over. Thank you for playing!");
+
                 Console.WriteLine();
+
                 Console.WriteLine("Press any key to continue. . .");
+
                 Console.ReadKey();
-                Environment.Exit(0);
+
+                Environment.Exit(0);//closes the game 
+
             }
-            else
+
+            else//if the player didn't kill the man they get the normal ending 
+
             {
+
                 TypeWriter("You find yourself in a beautiful garden, safe at last.");
+
                 TypeWriter("Congratulations, you've escaped the labyrinth!");
+
                 TypeWriter("Thank you for playing!");
-                
+
                 Console.WriteLine();
+
                 Console.WriteLine("Press any key to continue. . .");
+
                 Console.ReadKey();
-                Environment.Exit(0);
+
+                Environment.Exit(0);//closes the game 
+
             }
+
         }
 
+
+
+        //code for conversation with the man 
+
         static void TalkToMan()
+
         {
 
             TypeWriter("You decide to talk to the man.");
@@ -935,9 +1032,7 @@ namespace Labyrinth
 
             TypeWriter("\"Can you help me find a way out of this labyrinth?\" he asks.");
 
-
-
-            if (rightFirstTime == false)
+            if (rightFirstTime == false)//if the player has been to the right there is different dialogue 
 
             {
 
@@ -958,9 +1053,13 @@ namespace Labyrinth
             }
 
             TypeWriter("\"Here\", the man says. \"Take this, I don't need it anymore\"");
+
             TypeWriter("The man hands you a lantern");
-            itemAvailability[2] = true;
+
+            itemAvailability[2] = true;//adds lantern to inventory 
+
             TypeWriter("Inventory updated");
+
             TypeWriter("The man hurries off to continue his search.");
 
             TypeWriter("You go around the corner");
@@ -969,21 +1068,29 @@ namespace Labyrinth
 
 
 
-
+        //code for showing inventory 
 
         static void ShowInventory()
 
         {
 
+            // Display the header for the inventory section 
+
             TypeWriter("Inventory:");
+
+            // goes through each item in the items array 
 
             for (int i = 0; i < items.Length; i++)
 
             {
 
+                //Checks if the current item is available 
+
                 if (itemAvailability[i])
 
                 {
+
+                    // Displays the item name and indicates that it is available 
 
                     TypeWriter(items[i] + " - Available");
 
@@ -992,6 +1099,8 @@ namespace Labyrinth
                 else
 
                 {
+
+                    // Display the item name and indicate that it is not available 
 
                     TypeWriter(items[i] + " - Not Available");
 
@@ -1003,22 +1112,39 @@ namespace Labyrinth
 
 
 
+        // Simulates a typewriter effect by printing text one character at a time 
+
         static void TypeWriter(string text)
 
         {
+
+            // goes over each character in the input text 
 
             foreach (char c in text)
 
             {
 
+                // Prints the current character on the console 
+
                 Console.Write(c);
 
+
+
+                // Pauses briefly to simulate typing effect 
+
                 Thread.Sleep(1);
-                
 
             }
 
+
+
+            // Pauses briefly after finishing the line to create a small delay before the next line 
+
             Thread.Sleep(25);
+
+
+
+            // Moves to the next line after the text has been fully printed 
 
             Console.WriteLine();
 
@@ -1027,4 +1153,3 @@ namespace Labyrinth
     }
 
 }
-
