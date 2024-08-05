@@ -36,6 +36,8 @@ namespace Labyrinth
 
         static bool fateSealed = false;//tracks whether or not the player has met the criteria for the bad ending 
 
+        static bool TypeWriterOn = true;
+
         static void Main(string[] args)
 
         {
@@ -84,7 +86,7 @@ namespace Labyrinth
 
 
 
-            //introduction where the player chooses username 
+            //introduction where the player chooses username and whether or not they want the typewriter effect
 
             TypeWriter("Welcome to my text adventure!");
 
@@ -92,7 +94,34 @@ namespace Labyrinth
 
             string userName = Console.ReadLine();
 
-            TypeWriter("Hello " + userName + ", your adventure begins now!");
+            bool userchoicemade = false;
+
+            //stays active if the player makes an error, saves it from moving on to the next choice
+            while (userchoicemade == false)
+            {
+                TypeWriter("Hello " + userName + ", would you like the game to keep typing like this? (yes/no)");
+
+                string userchoice = Console.ReadLine();
+
+                if (userchoice == "yes")
+                {
+                    TypeWriterOn = true;
+                    userchoicemade = true;//confirms that the user has made the choice and allows it to exit the loop
+                }
+
+                else if (userchoice == "no")
+                {
+                    TypeWriterOn = false;
+                    userchoicemade = true;//confirms that the user has made the choice and allows it to exit the loop
+                }
+
+                else
+                {
+                    TypeWriter("Invalid choice, please try again");
+                    userchoicemade = false;
+                }
+            }
+            TypeWriter("Thanks " + userName + "! The game will start now!");
 
             StartGame(userName);//starts the game 
 
@@ -1118,36 +1147,59 @@ namespace Labyrinth
 
         {
 
-            // goes over each character in the input text 
-
-            foreach (char c in text)
-
+            if (TypeWriterOn == true)
             {
 
-                // Prints the current character on the console 
+                // goes over each character in the input text 
 
-                Console.Write(c);
+                foreach (char c in text)
+                {
+
+                    // Prints the current character on the console 
+
+                    Console.Write(c);
 
 
 
-                // Pauses briefly to simulate typing effect 
+                    // Pauses briefly to simulate typing effect 
 
-                Thread.Sleep(1);
+                    Thread.Sleep(25);
 
+                }
+
+
+
+                // Pauses briefly after finishing the line to create a small delay before the next line 
+
+                Thread.Sleep(1000);
+
+
+
+                // Moves to the next line after the text has been fully printed 
+
+                Console.WriteLine();
             }
+            
+
+            else
+            {
+                //if the user doesn't want the typewriter effect, it sets all of these to zero and the text outputs normally
+                foreach (char c in text)
+                {
+
+                    Console.Write(c);
 
 
+                    Thread.Sleep(0);
 
-            // Pauses briefly after finishing the line to create a small delay before the next line 
-
-            Thread.Sleep(25);
-
+                }
 
 
-            // Moves to the next line after the text has been fully printed 
+                Thread.Sleep(0);
 
-            Console.WriteLine();
 
+                Console.WriteLine();
+            }
         }
 
     }
