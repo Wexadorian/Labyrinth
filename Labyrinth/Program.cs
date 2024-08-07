@@ -39,6 +39,7 @@ namespace Labyrinth
                 Console.WriteLine(ex.ToString());
                 Console.ReadKey();
             }
+
             Console.ForegroundColor = ConsoleColor.Gray;
             //introduction where the player chooses username and whether or not they want the typewriter effect 
             TypeWriter("Welcome to my text adventure!");
@@ -113,18 +114,18 @@ namespace Labyrinth
                 {
                     case "left":
                         afterPath = true;
-                        left(userName);
+                        Left(userName);
                         break;
                     case "forward":
                         afterPath = true;
-                        forward(userName);
+                        Forward(userName);
                         break;
                     case "right":
-                        right(userName);
+                        Right(userName);
                         break;
                     case "back":
                         afterPath = false;
-                        back(userName);
+                        Back(userName);
                         break;
                     case "inv":
                         afterPath = false;
@@ -147,7 +148,7 @@ namespace Labyrinth
             Console.ReadKey();
         }
         //code for the left path  
-        static void left(string userName)
+        static void Left(string userName)
         {
             TypeWriter("You head to the left");
             //this is to stop it from moving onto the next scenario if a typo is made  
@@ -248,7 +249,7 @@ namespace Labyrinth
             }
         }
         //code for the forward path  
-        static void forward(string userName)
+        static void Forward(string userName)
         {
             TypeWriter("You head directly forward");
             bool choice1Made = false;
@@ -373,7 +374,7 @@ namespace Labyrinth
             }
         }
         //code for the back direction  
-        static void back(string userName)
+        static void Back(string userName)
         {
             TypeWriter("You go to the path behind you");
             bool choice1Made = false;
@@ -447,7 +448,7 @@ namespace Labyrinth
             TypeWriter("Eventually, you reach a dead end");
             TypeWriter("You go back the way you came");
         }
-        static void right(string userName)
+        static void Right(string userName)
         {
             //if the player hasn't been to the right before, it gives different (long) dialogue that I didnt want people to have to sit through twice.
             if (rightFirstTime == true)  
