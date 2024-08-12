@@ -12,9 +12,16 @@ namespace Labyrinth
 {
     public class Program
     {
-         
+        //defines the items in the game and whether or not they are available  
+        static string[] items = { "Key", "Dagger", "Lantern" };
+        static bool[] areItemsAvailable = { false, false, false };
+        //tracks whether or not the player has been to the right direction
+        static bool isRightFirstTime = true;
+        //tracks whether or not the player has met the criteria for the bad ending
+        static bool isFateSealed = false;
+        static bool isTypeWriterOn = true;
         static void Main(string[] args)
-        { 
+        {
             //Changes the colour of the ascii to yellow and then changes the colour back to gray after the title has been displayed  
             Console.ForegroundColor = ConsoleColor.Yellow;
             //displays the game title using ascii art on a notepad file 
@@ -70,7 +77,6 @@ namespace Labyrinth
         {
             //controls whether or not the game is playing
             bool isContinuePlaying = true;
-            //checks if its the players first time
             //checks if its the players first time
             bool isFirstTime = true;
             //checks if the player has already taken a path  
